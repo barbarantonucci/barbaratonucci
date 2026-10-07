@@ -1,0 +1,381 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    line-height: 1.6;
+}
+
+body{
+    font-family: arial;
+    line-height: 2.0;
+    background-color: #1a1a1a;
+    color: #fff;
+}
+
+.cabecalho {
+    background-color: #920606;
+    padding: 20px 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    justify-content: space-between;
+    gap: 10cm;
+}
+
+.cabecalho .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.destaque {
+    color: #000000;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.menu > ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.menu > ul > li > a:hover{
+    color: #c95e5e;
+    transition: 0.3s;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    position: absolute;
+    display: none;
+
+    top: 100%;
+    left: 0;
+
+    background-color: #272626;
+
+    min-width: 180px;
+    border-radius: 4px;
+
+    list-style: none;
+
+    z-index: 100;
+    box-shadow: 0px 4px 8px #07050556;
+    opacity: 0.9;
+}
+
+.dropdown-content a {
+    color: #ffffff;
+    font-weight: bold;
+    padding: 12px 15px;
+}
+
+.dropdown-content a:hover {
+    background-color: #000000;
+}
+
+.dropdown:hover .dropdown-content {
+    display:block;
+}
+
+.slider-container {
+    width: 100%;
+    margin-top: 40px;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px #131312;
+    overflow: hidden;
+}
+
+.slides {
+    display: flex;
+    width: 300%; /*cada imagem se soma nesse width*/
+}
+
+.slide-1, .slide-2, .slide-3 {
+    width: 33.333%;
+    position: relative;
+    transition: margin-left 0.8s ease-in-out; /*ele vai guardar esse lugar na fila*/
+}
+
+.slide-1 img, .slide-2 img, .slide-3 img {
+    width: 100%;
+    display: block;
+}
+
+/* máscara e posição da legenda*/
+
+.mascara {
+    position: absolute; /*vai fazer minha mascara ficar em cima da imagem*/
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, #000 0%, transparent 70%);
+}
+
+.legenda {
+    position: absolute;
+    z-index: 2;
+    bottom: 50px;
+    left: 30px;
+    color: #fff;
+}
+
+.legenda h2 {
+    font-size: 2.5rem;
+}
+
+.legenda p {
+    font-size: 1.2rem;
+}
+
+/*aqui vai a lógica para os slider funcionarem*/
+
+/*esconder os pontinhos padrão*/
+
+.slider-container input[type="radio"] {
+    display: none;
+}
+
+#radio1:checked ~ .slides .slide-1 {
+    margin-left: 0;
+} /*quando o botão estiver apertado a margem é 0*/
+
+#radio2:checked ~ .slides .slide-1 {
+    margin-left: -33.333%; /*isso aqui que empurra o slide1 pra fora da tela e o overflow vai esconder e o slide 2 via ficar posicionado no cnetro da e vai aparecer*/
+}
+
+#radio3:checked ~.slides .slide-1 {
+    margin-left: -66.666%;
+}
+
+.navegacao-slider {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    z-index: 5;
+}
+
+.btn-slider {
+    width: 15px;
+    height: 15px;
+    border: 2px solid #fff;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+/*
+#radio1:checked ~ .navegacao-slider label[for="radio1"],
+#radio2:checked ~ .navegacao-slider label[for="radio2"],
+#radio3:checked ~ .navegacao-slider label[for="radio3"] {
+    background-color: #ffffff;
+}*/
+
+/* Aqui o auto play do slide */
+
+@keyframes carrossel {
+
+    0% {margin-left: 0;}
+    30%{margin-left: 0;} /* O slide tava passando de pouquinho em pouquinho, e isso é para que ele faça de uma vez com tudo */
+
+    33% {margin-left: -33.333%;}
+    66% {margin-left: -33.333%;}
+
+    66% {margin-left: -66.666%;}
+    96% {margin-left: -66.666%;}
+
+    100% {margin-left: 0;}
+
+}
+
+.slides .slide-1 {
+    animation: carrossel 45s infinite;
+}
+
+.noticias {
+    margin: 50px;
+}
+
+.noticias h2 , .sessao-destaque h2 , .titulo-hero p{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-left: 5px solid #920606;
+    padding-left: 10px;
+}
+
+.grid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px #3d3c3c;
+    /*Definir qualquer animação para durar de 0.4s de uma forma suave pra ir e voltar*/
+    transition: transform 0.4s ease-in-out;
+}
+
+.grid-cards .card:hover {
+    /*Dar um leve zoom de ampliação de 5% no meu card*/
+    transform: scale(1.05);
+}
+
+.card-texto {
+    padding: 20px;
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.layout-destaque {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.artigo-principal {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px #3d3c3c;
+}
+
+.artigo-principal img {
+    height: auto;
+    width: 100%;
+    min-height: 200px;
+    flex-grow: 1;
+    object-fit: cover;
+}
+
+.lista-secundaria {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    gap: 20px;
+    
+}
+
+.noticia-menor {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    min-height: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px #3d3c3c;
+    align-items: center;
+}
+
+.noticia-menor img {
+    height: 100%;
+    width: 150px;
+    object-fit: cover;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 30px 70px 30px 70px;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.titulo-hero {
+    font-size: 24px;
+}
+
+.titulo-hero p {
+    font-size: 16px;
+}
+
+.hero img {
+    height: 400px;
+}
+
+.hero li {
+    margin-left: 20px;
+}
+
+.btn-feedback {
+    display: flex;
+    align-items: center;
+}
+
+
+.btn-feedback a {
+    text-decoration: none;
+    color:white;
+    font-weight: bolder;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.Twitter{
+    background-color: rgb(0, 204, 255);
+}
+
+.Facebook {
+    background-color: #070566;
+}
+
+.Whatsapp {
+    background-color: #0eec33;
+}
+
+hr {
+    margin-bottom: 24px;        
+}
+
+footer {
+    background-color: #920606;
+    height: 220px;
+    align-items: center;
+    display: flex;
+    padding: 70px;
+    text-align: left;
+    justify-content: space-between;
+}
+
+footer a {
+    text-decoration: none;
+    color: white;
+    flex-direction: column;
+}
+
+footer li {
+    list-style: none;
+}
+
+
+
+
+
+
